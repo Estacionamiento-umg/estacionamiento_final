@@ -1,3 +1,4 @@
+# EU-33 - mejora de interfaz realizada por Ermi
 import tkinter as tk
 from tkinter import messagebox, simpledialog
 
