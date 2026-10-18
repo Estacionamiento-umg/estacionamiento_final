@@ -1,8 +1,10 @@
 from pathlib import Path
 import csv
 
+# Carpeta donde se guardan los archivos CSV.
 DATA_DIR = Path(__file__).parent / "data"
 
+# Columnas que tiene cada archivo.
 CAMPOS = {
     "usuarios": ["id_usuario", "nombre", "telefono"],
     "vehiculos": ["placa", "id_usuario", "tipo"],
@@ -21,29 +23,49 @@ ESPACIOS_INICIALES = [
     {"codigo": "O01", "tipo": "otro", "estado": "libre"},
 ]
 
+
 def inicializar_datos():
+    """Crea los CSV la primera vez que se ejecuta el programa."""
     DATA_DIR.mkdir(parents=True, exist_ok=True)
-    for nombre, campos in CAMPOS.items():
-        ruta = DATA_DIR / f"{nombre}.csv"
+
+    for nombre in CAMPOS:
+        ruta = DATA_DIR / (nombre + ".csv")
+
         if not ruta.exists():
-            datos = ESPACIOS_INICIALES if nombre == "espacios" else []
-            escribir(nombre, datos)
+            if nombre == "espacios":
+                escribir(nombre, ESPACIOS_INICIALES)
+            else:
+                escribir(nombre, [])
+
 
 def leer(nombre):
+    """Lee un CSV y devuelve sus filas como una lista de diccionarios."""
     inicializar_datos()
-    ruta = DATA_DIR / f"{nombre}.csv"
+    ruta = DATA_DIR / (nombre + ".csv")
+
     with ruta.open("r", encoding="utf-8-sig", newline="") as archivo:
-        return list(csv.DictReader(archivo))
+        lector = csv.DictReader(archivo)
+        return list(lector)
+
 
 def escribir(nombre, filas):
+    """Guarda una lista de diccionarios dentro de un CSV."""
     DATA_DIR.mkdir(parents=True, exist_ok=True)
-    ruta = DATA_DIR / f"{nombre}.csv"
+    ruta = DATA_DIR / (nombre + ".csv")
+
     with ruta.open("w", encoding="utf-8-sig", newline="") as archivo:
-        writer = csv.DictWriter(archivo, fieldnames=CAMPOS[nombre])
-        writer.writeheader()
-        writer.writerows(filas)
+        escritor = csv.DictWriter(archivo, fieldnames=CAMPOS[nombre])
+        escritor.writeheader()
+        escritor.writerows(filas)
+
 
 def siguiente_id(filas, campo):
-    if not filas:
-        return "1"
-    return str(max(int(fila[campo]) for fila in filas) + 1)
+    """Obtiene el siguiente numero disponible para un ID."""
+    mayor = 0
+
+    for fila in filas:
+        numero = int(fila[campo])
+        if numero > mayor:
+            mayor = numero
+
+    return str(mayor + 1)

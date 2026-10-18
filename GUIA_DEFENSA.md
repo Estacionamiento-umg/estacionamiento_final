@@ -1,57 +1,56 @@
-# Guia rapida para defender el codigo
+# Guia de defensa - Sprint 2
 
-## Idea general
-El programa guarda la informacion en archivos CSV. Se uso esta forma porque es sencilla para un proyecto universitario y permite practicar lectura y escritura de archivos sin usar una base de datos.
+## Explicacion general
 
-## Preguntas posibles
+"Esta es una primera version funcional del sistema de estacionamiento. La dividimos en modulos para que cada archivo tenga una responsabilidad. Usamos Python para la logica, CSV para guardar datos y Tkinter para una interfaz inicial."
 
-**¿Que hace main.py?**  
-Muestra un menu y llama a las funciones de los otros archivos.
+## Preguntas basicas
 
-**¿Por que separaron el proyecto en varios archivos?**  
-Para que cada archivo tenga una responsabilidad y sea mas facil trabajar en equipo.
+**¿Por que varios archivos?**  
+Para separar responsabilidades y poder repartir el trabajo entre los integrantes.
 
 **¿Que hace archivos.py?**  
-Lee, escribe e inicializa los CSV.
+Lee y escribe los CSV. Evita repetir el mismo codigo de archivos en todos los modulos.
 
 **¿Que es un diccionario?**  
-Una estructura con pares clave-valor, por ejemplo `{"placa": "P123ABC", "tipo": "carro"}`.
+Es una estructura de clave y valor. Por ejemplo una placa, el ID del dueño y el tipo de vehiculo.
 
 **¿Que hace un for?**  
-Recorre elementos de una lista para buscar usuarios, vehiculos, espacios o reservas.
+Recorre una lista. Lo usamos para buscar usuarios, vehiculos, espacios o movimientos.
 
 **¿Que hace un if?**  
-Permite tomar decisiones, por ejemplo verificar si un espacio esta libre.
+Toma una decision segun una condicion, por ejemplo si un espacio esta libre.
 
-**¿Para que sirve ValueError?**  
-Para indicar que un dato no es valido sin que el programa falle de forma confusa.
+**¿Que hace try/except?**  
+Permite controlar un error y mostrar un mensaje entendible en lugar de cerrar el programa.
 
-**¿Como funciona una reserva?**  
-Se valida usuario, vehiculo, espacio, fechas y que no exista otra reserva en el mismo horario. Luego se guarda en CSV.
+**¿Por que CSV?**  
+Porque es una forma sencilla de almacenar datos para este avance sin implementar todavia una base de datos.
 
-**¿Como se calcula el cobro?**  
-Cada tipo de vehiculo tiene una tarifa base que incluye 2 horas. Si se pasa ese tiempo, se cobra una cantidad por cada hora extra iniciada.
-
-**¿Por que hay C++?**  
-Porque el proyecto pide combinar Python y C++. `motor_tarifas.cpp` muestra el calculo de tarifas en C++.
+**¿Que hace la interfaz?**  
+Recibe datos del usuario y llama a las funciones de los modulos. La logica no esta repetida dentro de la interfaz.
 
 **¿Que son las pruebas unitarias?**  
-Son pequeños programas que verifican automaticamente que una funcion haga lo esperado.
+Comprueban una funcion especifica. La prueba de integracion comprueba varias funciones trabajando juntas.
 
-## Que explica cada integrante
+## Ermi
 
-### Ermi
-- reservas.py
-- tarifas.py
-- reportes.py
-- test_eu_25.py, test_eu_27.py, test_eu_29.py
+Debe explicar principalmente:
+- `reservas.py`: valida usuario, vehiculo, espacio y horarios.
+- `tarifas.py`: tarifa base y horas extra.
+- `reportes.py`: cuenta entradas, pagos e ingresos por fecha.
+- `interfaz.py`: cada boton llama a una funcion del sistema.
 
-### Nicolas
-- espacios.py
-- ingresos.py
-- test_eu_24.py, test_eu_26.py, test_eu_30.py
+## Nicolas
 
-### Noe
-- usuarios_vehiculos.py
-- salidas_pagos.py
-- test_eu_23.py, test_eu_28.py
+Debe explicar principalmente:
+- `espacios.py`: busca espacios libres y cambia libre/ocupado.
+- `ingresos.py`: valida la placa, evita doble ingreso y asigna un espacio.
+- Integracion en `develop`: revisa que los modulos unidos sigan funcionando.
+
+## Noe
+
+Debe explicar principalmente:
+- `usuarios_vehiculos.py`: registra usuarios y placas y evita duplicados.
+- `salidas_pagos.py`: calcula tiempo, cobra, guarda pago y libera espacio.
+- `pruebas/test_integracion.py`: prueba el flujo registro -> ingreso -> salida -> reporte.

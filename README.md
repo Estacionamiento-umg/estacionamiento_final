@@ -1,34 +1,46 @@
-# Estacionamiento Final - Grupo 4
+# Sistema de Estacionamiento - Grupo 4
 
-Version simplificada del sistema para que el equipo pueda entender y explicar el codigo.
+Primera version funcional correspondiente al Sprint 2.
 
-## Integrantes y EU
+El lenguaje principal del sistema es **Python**. La informacion se guarda temporalmente en archivos CSV y la interfaz grafica se realizo con Tkinter.
 
-- Ermi: EU-25 Reservas, EU-27 Tarifas, EU-29 Reportes
-- Nicolas: EU-24 Espacios, EU-26 Ingresos, EU-30 Pruebas
-- Noe: EU-23 Usuarios y vehiculos, EU-28 Salida y pago
+## Ejecutar la interfaz
 
-## Ejecutar el programa
+```powershell
+python interfaz.py
+```
+
+## Ejecutar por consola
 
 ```powershell
 python main.py
 ```
 
-## Ejecutar todas las pruebas
+## Ejecutar las pruebas
 
 ```powershell
 python -m unittest discover pruebas -v
 ```
 
-## C++
+## Archivos principales
 
-El archivo `motor_tarifas.cpp` contiene el mismo calculo basico de tarifas en C++.
+- `archivos.py`: lectura y escritura de CSV.
+- `usuarios_vehiculos.py`: registro de usuarios y vehiculos.
+- `espacios.py`: consulta y cambio de estado de espacios.
+- `reservas.py`: creacion y cancelacion de reservas.
+- `ingresos.py`: entrada y asignacion de espacio.
+- `tarifas.py`: calculo de cobro.
+- `salidas_pagos.py`: salida, liberacion del espacio y pago.
+- `reportes.py`: consultas y resumen por fecha.
+- `interfaz.py`: ventana sencilla hecha con Tkinter.
+- `pruebas/`: pruebas unitarias y una prueba de integracion.
 
-En Windows con g++:
+## Reparto de trabajo
 
-```powershell
-g++ motor_tarifas.cpp -o motor_tarifas.exe
-.\motor_tarifas.exe carro 121
-```
+- **Ermi:** reservaciones, tarifas, reportes e interfaz.
+- **Nicolas:** espacios, ingreso, apoyo en integracion y revision.
+- **Noe:** usuarios, vehiculos, salida/pago y pruebas de integracion.
 
-El resultado esperado es `25`.
+## Sobre C++
+
+`motor_tarifas.cpp` se conserva como un prototipo sencillo del calculo de tarifas. La version funcional presentada en este Sprint trabaja principalmente en Python, lo cual cumple con la indicacion de desarrollar la solucion utilizando C++ o Python.
